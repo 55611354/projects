@@ -1,7 +1,7 @@
 // Copyright 2018 The Flutter team. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,9 +20,35 @@ class MyApp extends StatelessWidget {
           title: const Text('Welcome to Flutter'),
         ),
         body: const Center(
-          child: Text('Hello World'),
+          child: RandomWords(),
         ),
       ),
+    );
+  }
+}
+class RandomWords extends StatefulWidget {
+  const RandomWords({super.key});
+
+  @override
+  State<RandomWords> createState() => _RandomWordsState();
+}
+
+class _RandomWordsState extends State<RandomWords> {
+  @override
+  Widget build(BuildContext context) {
+    final suggestions = <WordPair>[];
+    final biggerFont = const TextStyle(fontSize: 18);
+    return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: /*1*/ (context, i) {
+        if (i.isOdd) return const Divider(); /*2*/
+
+        final index = i ~/ 2; /*3*/
+        if (index >= suggestions.length) {
+          suggestions.addAll(generateWordPairs().take(10)); /*4*/
+        }
+        return Text(suggestions[index].asPascalCase);
+      },
     );
   }
 }
