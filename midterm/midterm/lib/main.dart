@@ -1,25 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
-var stats =  CookieStats();
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   runApp(MyApp());
-}
-
-class CookieStats {
-  num _cookies = 0;
-  num get cookieCount {
-    return _cookies;
-  }
-  set cookieCount (num cookie) {
-    setState(
-      () => _cookies += cookie
-      );
-  }
-
 }
 
 class MyApp extends StatelessWidget {
@@ -31,24 +16,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MainMenu(),
+      home: HomePage(),
     );
   }
 }
 
-class MainMenu extends StatefulWidget {
-  @override 
+class HomePage extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50,
-        flexibleSpace: Center(
-          child: Row(
+        flexibleSpace: FlexibleSpaceBar(
+          title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
               Text("logo"),
               Text("apptitle"),
               Text("placeholder"),
+              Text("placeholder 2"),
             ],
           ),
         ),
@@ -57,45 +43,87 @@ class MainMenu extends StatefulWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              
-              height: 500,
-              decoration: const BoxDecoration(
-                color: Colors.blueAccent,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("$stats.cookieCount Cookies"),
-                  Container(
-                    height: 300,
-                    width: 300,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.brown,
-                    ),
-                  ),
-                ]
-              ),
-            ),
-            Column(children:[Text("placeholder"),],),
+            CookieContainer(),
           ],
         ),
       ),
     );
-  } 
- State<MainMenu> createState() => increment();
+  }
 }
 
-class increment extends State<MainMenu>{
-  setState(() => stats.cookieCount++);
-}
-
-
-class TestThing extends StatelessWidget {
+class Cookie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return const Text("placeholder");
+    return Container(
+      height: 300,
+      width: 300,
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.brown,
+      ),
+    );
+  }
+}
 
+class CookieCount extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text("placeholder.cookieCount Cookies");
+  }
+}
+
+class CookieContainer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      decoration: const BoxDecoration(
+        color: Colors.blueAccent,
+      ),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Text("placeholder.cookieCount Cookies"),
+        Cookie(),
+      ]),
+    );
+  }
+}
+
+class ShopMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("placeholder"),
+      ],
+    );
+  }
+}
+
+
+
+class ShopOption extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      margin:EdgeInsetsDirectional.only(start: 3, end:3, top:5, bottom: 5, ),
+      child: Row(
+
+
+      ),
+    );
+  }
+}
+
+class ShopItemIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(color: Colors.brown, width: 4,),
+      ),
+    ));
   }
 }
