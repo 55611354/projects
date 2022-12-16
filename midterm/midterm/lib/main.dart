@@ -199,7 +199,7 @@ class _ShopOptionState extends State<ShopOption> {
         stats.cookiesPerClick += num.parse("$cost") * .01;
         ++numberOf;
         cost = cost * 1.05;
-        cost.round();
+        cost = cost.round();
       });
     }
   }
